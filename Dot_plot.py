@@ -22,14 +22,7 @@ min_samples = 3
 
 # Slot index for Y-axis offset
 def slot_index(pop, cov):
-    if cov == "6x":
-        mapping = {"PJL": 3, "BEB": 2, "ITU": 1.0}
-    elif cov == "9x":
-        mapping = {"PJL": 3, "BEB": 2, "ITU": 1}
-    elif cov == "12x":
-        mapping = {"PJL": 3, "BEB": 2, "ITU": 1}
-    else:  # 15x
-        mapping = {"PJL": 3, "BEB": 2, "ITU": 1}
+    mapping = {"PJL": 3.0, "BEB": 2.0, "ITU": 1.0}
     return mapping[pop]
 
 # Detect chromosome arms using DBSCAN
@@ -89,7 +82,7 @@ def fix_orientation_and_slope(df):
             df["Y"] = 2 * y_mid - df["Y"]
     
     return df
- 
+
 # Apply Y-axis offset for visualization (modify offset_factor as per chromosome)
 def offset_data(df, pop, cov, y_min, y_max):
     df = df.copy()
@@ -97,15 +90,15 @@ def offset_data(df, pop, cov, y_min, y_max):
     y_range = max(y_max - y_min, 1e-9)
     
     if cov in ["6x", "9x"]:
-        offset_factor = 1.5e7
+        offset_factor = 1.5e7  # Can be changed for each chromosome
         df["Y_norm"] = (df["Y"] - y_min) / y_range
         df["Y_offset"] = df["Y_norm"] * 0.6e8 + slot * offset_factor
     elif cov == "12x":
-        offset_factor = 0.3e8
+        offset_factor = 0.3e8  # Can be changed for each chromosome
         df["Y_norm"] = (df["Y"] - y_min) / y_range
         df["Y_offset"] = df["Y_norm"] * 0.6e8 + slot * offset_factor
     else:  # 15x
-        offset_factor = 0.7e8
+        offset_factor = 0.7e8  # Can be changed for each chromosome
         df["Y_offset"] = df["Y"] + slot * offset_factor
     
     return df
@@ -123,7 +116,7 @@ def plot_chromosome_quadraplot(chr_name):
         
         # Load data for all populations
         for pop in populations:
-            file_path = f"{base_path}/header_filt_chr{chr_name}_{pop}_{cov}"
+            file_path = f"{base_path}/chr{chr_name}_{pop}_{cov}"
             
             # Check if file exists
             if not os.path.exists(file_path):
@@ -203,7 +196,6 @@ def plot_chromosome_quadraplot(chr_name):
     output_file = f"{output_path}/chr{chr_name}_quadraplot_300dpi.png"
     fig.savefig(output_file, dpi=300, bbox_inches='tight')
     plt.close(fig)
-    
     print(f"Output for chr{chr_name} saved at {output_file}")
 
 # Plot all chromosomes
@@ -221,4 +213,3 @@ def plot_all_chromosomes(chromosomes=None):
 if __name__ == "__main__":
     # Plot chromosome N
     plot_chromosome_quadraplot("N")
-
