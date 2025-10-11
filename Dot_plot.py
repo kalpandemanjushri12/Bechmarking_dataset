@@ -209,7 +209,7 @@ def plot_chromosome_quadraplot(chr_name):
 # Plot all chromosomes
 def plot_all_chromosomes(chromosomes=None):
     if chromosomes is None:
-        chromosomes = [str(i) for i in range(1, 23)] + ['X', 'Y']
+        chromosomes = [str(i) for i in range(1, 23)] + ['X']
     
     for chr_name in chromosomes:
         try:
@@ -221,3 +221,4 @@ def plot_all_chromosomes(chromosomes=None):
 if __name__ == "__main__":
     # Plot chromosome N
     plot_chromosome_quadraplot("N")
+
