@@ -6,3 +6,5 @@ Each marker sequence is 2 kb in length and spaced 100 kb apart across all chromo
 2. **markers_generation.R** :
 An R script that creates fixed-length genomic markers from chromosome FASTA files.
 It was used to generate the hg38 marker set included in this repository.
+
+3. **Dot_plot.py** : Python script generates quadraplots for visualizing genomic marker distributions across different coverages and populations.
