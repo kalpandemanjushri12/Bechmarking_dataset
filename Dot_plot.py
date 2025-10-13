@@ -213,4 +213,3 @@ def plot_all_chromosomes(chromosomes=None):
 if __name__ == "__main__":
     #  Plot a single chromosome (useful for testing/debugging)
     plot_chromosome_quadraplot("N")
-
