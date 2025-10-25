@@ -9,3 +9,6 @@ Each marker sequence is 2 kb in length and spaced 100 kb apart across all chromo
 An R script that creates fixed-length genomic markers from chromosome FASTA files.
 It was used to generate the hg38 marker set included in this repository.
 
+4.**t2t_100kb_markers.zip** :
+A collection of FASTA marker files generated for the T2T-CHM13v2.0 using the marker generation script.
+Each marker sequence is 2 kb in length and spaced 100 kb apart across all chromosomes.
