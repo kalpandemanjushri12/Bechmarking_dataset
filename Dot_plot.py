@@ -83,24 +83,37 @@ def fix_orientation_and_slope(df):
     
     return df
 
-# Apply Y-axis offset for visualization (modify offset_factor as per chromosome)
+# Apply Y-axis offset for visualization (modify offset_factor as per chromosome requirement)
 def offset_data(df, pop, cov, y_min, y_max):
     df = df.copy()
     slot = slot_index(pop, cov)
     y_range = max(y_max - y_min, 1e-9)
-    
-    if cov in ["6x", "9x"]:
-        offset_factor = 1.5e7  # Can be changed for each chromosome
-        df["Y_norm"] = (df["Y"] - y_min) / y_range
+
+    # Normalize Y
+    df["Y_norm"] = (df["Y"] - y_min) / y_range
+
+    # Apply separate offset factors for each coverage
+    if cov == "6x":
+        offset_factor = 1.0e7   # separate for 6x
         df["Y_offset"] = df["Y_norm"] * 0.6e8 + slot * offset_factor
+
+    elif cov == "9x":
+        offset_factor = 1.5e7   # separate for 9x
+        df["Y_offset"] = df["Y_norm"] * 0.6e8 + slot * offset_factor
+
     elif cov == "12x":
-        offset_factor = 0.3e8  # Can be changed for each chromosome
-        df["Y_norm"] = (df["Y"] - y_min) / y_range
+        offset_factor = 0.3e8   # separate for 12x
         df["Y_offset"] = df["Y_norm"] * 0.6e8 + slot * offset_factor
-    else:  # 15x
-        offset_factor = 0.7e8  # Can be changed for each chromosome
-        df["Y_offset"] = df["Y"] + slot * offset_factor
-    
+
+    elif cov == "15x":
+        offset_factor = 0.7e8   # separate for 15x
+        df["Y_offset"] = df["Y"] + slot * offset_factor  # no normalization here
+
+    else:
+        # Default handling if coverage is unknown
+        offset_factor = 1.0e7
+        df["Y_offset"] = df["Y_norm"] * 0.6e8 + slot * offset_factor
+
     return df
 
 # Main plotting function
@@ -213,3 +226,4 @@ def plot_all_chromosomes(chromosomes=None):
 if __name__ == "__main__":
     #  Plot a single chromosome (useful for testing/debugging)
     plot_chromosome_quadraplot("N")
+
