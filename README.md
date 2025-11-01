@@ -15,3 +15,4 @@ Each marker sequence is 2 kb in length and spaced 100 kb apart across all chromo
 
 5. **Calculate_N50_L50.sh** :
 A bash script which will calculate the N50 and L50 assembly quality check metrices of the genome sequence.
+Commandline -[ bash Calculate_N50_L50.sh filename.fasta ]
