@@ -14,4 +14,4 @@ A collection of FASTA marker files generated for the T2T-CHM13v2.0 using the mar
 Each marker sequence is 2 kb in length and spaced 100 kb apart across all chromosomes.
 
 5. **Calculate_N50_L50.sh** :
-A python script which will calculate the N50 and L50 assembly quality check metrices of the genome sequence.
+A bash script which will calculate the N50 and L50 assembly quality check metrices of the genome sequence.
